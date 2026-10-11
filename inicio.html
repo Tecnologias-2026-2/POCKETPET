@@ -93,36 +93,36 @@
       </div>
     </section>
 
-    <!-- Metas y Ahorros (vacíos) -->
-    <section class="panels">
+    <!-- Metas y Ahorros -->
+    <section class="panels"> <!-- Esta etiqueta faltaba -->
+      
       <div class="panel">
         <div class="panel-header">
-          <h3>🎯 Mis Metas <span class="count">0</span></h3>
+          <h3>🎯 Mis Metas <span class="count" id="inicio-contador-metas">0</span></h3>
           <a href="metas.html" class="btn-small">+ Agregar Meta</a>
         </div>
-        <div class="panel-body empty">
+        <div class="panel-body empty" id="panel-metas-body">
           <img src="assets/mascota-viaje.png" alt="" class="empty-img">
           <p class="empty-title">No tienes metas aún</p>
-          <p class="empty-sub">Define objetivos financieros y trabaja para alcanzarlos</p>
         </div>
       </div>
 
       <div class="panel">
         <div class="panel-header">
-          <h3>🏦 Mis Ahorros <span class="count">0</span></h3>
+          <h3>🏦 Mis Ahorros <span class="count" id="inicio-contador-ahorros">0</span></h3>
           <a href="ahorros.html" class="btn-small">+ Agregar Ahorro</a>
         </div>
-        <div class="panel-body empty">
+        <div class="panel-body empty" id="panel-ahorros-body">
           <img src="assets/mascota_ahorrando.png" alt="" class="empty-img">
           <p class="empty-title">No tienes ahorros registrados</p>
-          <p class="empty-sub">Registra cada ahorro para ver tu progreso</p>
         </div>
       </div>
-    </section>
+
+    </section> <!-- Cierre de la sección de paneles -->
 
   </main>
 
-  <!-- Enlace al nuevo script -->
+  <!-- Enlace al script que unifica todas las vistas -->
   <script src="js/inicio.js"></script>
 </body>
 </html>
