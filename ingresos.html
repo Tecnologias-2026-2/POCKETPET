@@ -81,16 +81,17 @@
 
       </div>
 
-      <!-- COLUMNA DERECHA: Formulario de Registro -->
+      <!-- COLUMNA DERECHA: Formulario de Registro + Historial -->
       <div class="right-col">
+        
         <div class="form-card">
-          
           <div class="form-header">
             <h2>Registrar Ingreso</h2>
             <p>Completa los datos de tu ingreso</p>
           </div>
 
-          <form id="ingreso-form" class="ingresos-form" action="inicio.html">
+          <!-- Se eliminó el action para que JavaScript maneje el guardado -->
+          <form id="ingreso-form" class="ingresos-form">
             
             <div class="form-row">
               <div class="form-group">
@@ -105,7 +106,8 @@
             </div>
 
             <div class="form-group">
-              <label for="fecha-ingreso"></label>
+              <!-- Etiqueta de fecha corregida -->
+              <label for="fecha-ingreso">Fecha *</label>
               <input type="date" id="fecha-ingreso" required>
             </div>
 
@@ -115,15 +117,25 @@
             </div>
 
             <button type="submit" class="btn-submit-ingreso">Registrar Ingreso</button>
-
           </form>
-
         </div>
+
+        <!-- Contenedor Historial de Ingresos ubicado dentro de la columna derecha -->
+        <div class="history-card">
+          <div class="history-header">
+            <h3>Historial de Ingresos</h3>
+            <button id="btn-reset-ingresos" class="btn-reset" type="button">Reiniciar Datos</button>
+          </div>
+          <div id="lista-historial-ingresos" class="history-list"></div>
+        </div>
+
       </div>
 
     </div>
 
   </main>
+  
+  <script src="js/ingresos.js"></script>
 
 </body>
 </html>
