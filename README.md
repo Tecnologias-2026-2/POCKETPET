@@ -63,7 +63,7 @@ Explicar qué proceso representa.
 
 Colocar aquí el enlace público de Figma:
 
-https://figma.com/xxxxx
+https://www.figma.com/design/ty9fX4Lq7XpeLyawpGjVm2/Pagina-Web-Pocketpet-version-2?node-id=0-1&t=76TKTIUN1P9Y8kNT-1
 
 
 🗄️ 6. Diseño de Base de Datos
