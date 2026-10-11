@@ -61,6 +61,10 @@ Explicar qué proceso representa.
 
 🎨 5. URL del Prototipo
 
+URL
+```powershell
+https://tecnologias-2026-2.github.io/POCKETPET/inicio.html
+```
 Colocar aquí el enlace público de Figma:
 
 https://www.figma.com/design/ty9fX4Lq7XpeLyawpGjVm2/Pagina-Web-Pocketpet-version-2?node-id=0-1&t=76TKTIUN1P9Y8kNT-1
