@@ -93,13 +93,25 @@ https://www.figma.com/design/ty9fX4Lq7XpeLyawpGjVm2/Pagina-Web-Pocketpet-version
 
 🗄️ 6. Diseño de Base de Datos
 
-<img src="diagramas/Modelo de datos.jpeg">
+
 
 🧩 7. Documentación del Sistema
 Estructura de Carpetas
-/css
-/assets
 
+Carpeta /assets: Almacena todos los archivos multimediales y recursos gráficos estáticos del proyecto. Guarda las diferentes ilustraciones vectoriales de la mascota virtual en sus distintos estados (saludando, en traje, con alcancía, con facturas, en modo viaje y ahorrando), además de logotipos e íconos utilizados para la navegación y componentes visuales de la aplicación.  
+
+Carpeta /css: Contiene los archivos de hojas de estilo (.css) encargados del diseño visual, maquetación adaptable (rem), paleta cromática por módulo y la normalización de elementos de formulario (como la deshabilitación de flechas en campos de tipo número). 
+Se divide de forma modular:   
+
+navbar.css: Estilos de la barra de navegación superior global.   
+
+auth.css: Estilos para las vistas de registro e inicio de sesión.   
+
+index.css e inicio.css: Estilos de la página de presentación y del dashboard de resumen.   
+
+ingresos.css, gastos.css y metas.css: Hojas de estilo que definen la temática cromática propia de cada sección (Verde para Ingresos, Terracota para Gastos y Azul para Metas).  
+ 
+Archivos .html (Raíz del proyecto): Contienen el código de maquetación semántica en HTML5. Cada archivo representa una vista navegable independiente que da cumplimiento directo a los Requerimientos Funcionales del sistema (RF-01 a RF-10) y permite al usuario interactuar con las funcionalidades de la plataforma
 Explicar brevemente qué contiene cada carpeta.
 
 🚀 8. Instalación y Ejecución
