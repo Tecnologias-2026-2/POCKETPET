@@ -34,7 +34,6 @@
           <span class="chevron">▾</span>
         </summary>
         <div class="user-dropdown">
-          <a href="#">Mi perfil</a>
           <a href="index.html" class="logout">Cerrar sesión</a>
         </div>
       </details>
@@ -64,18 +63,18 @@
         <div class="stats-row">
           <div class="card-mini card-ingresos-mini">
             <span class="card-label">INGRESOS</span>
-            <strong class="card-amount">$0</strong>
+            <strong class="card-amount" id="gasto-ingresos-total">$0</strong>
           </div>
           <div class="card-mini card-gastos-mini">
             <span class="card-label">GASTOS</span>
-            <strong class="card-amount">$0</strong>
+            <strong class="card-amount" id="gasto-gastos-total">$0</strong>
           </div>
         </div>
 
         <!-- Tarjeta Saldo Disponible -->
         <div class="card-saldo">
           <span class="card-label">SALDO DISPONIBLE</span>
-          <strong class="card-amount">$0</strong>
+          <strong class="card-amount" id="gasto-saldo-total">$0</strong>
         </div>
 
         <!-- Mascota con Factura/Recibos -->
@@ -93,7 +92,7 @@
 
       </div>
 
-      <!-- COLUMNA DERECHA: Formulario de Registro de Gastos -->
+      <!-- COLUMNA DERECHA: Formulario de Registro + Historial -->
       <div class="right-col">
         <div class="form-card">
           
@@ -102,7 +101,7 @@
             <p>Registra un gasto de forma responsable</p>
           </div>
 
-          <form id="gastos-form" class="gastos-form" action="inicio.html">
+          <form id="gastos-form" class="gastos-form">
             
             <div class="form-group">
               <label for="descripcion-gasto">Descripción *</label>
@@ -144,11 +143,24 @@
           </form>
 
         </div>
+
+        <!-- Contenedor Historial de Gastos -->
+        <div class="history-card">
+          <div class="history-header">
+            <h3>Historial de Gastos</h3>
+            <button id="btn-reset-gastos" class="btn-reset" type="button">Reiniciar Datos</button>
+          </div>
+          <div id="lista-historial-gastos" class="history-list"></div>
+        </div>
+
       </div>
 
     </div>
 
   </main>
+
+  <script src="js/storage.js"></script>
+  <script src="js/gastos.js"></script>
 
 </body>
 </html>

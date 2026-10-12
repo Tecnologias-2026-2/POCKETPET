@@ -6,9 +6,9 @@ Plataforma web para la gestión de finanzas personales, pensada para jovenes que
 
 👥 Integrantes
 
-Daniela Garnica Guzmán – 1202851
-Mateo Vargas Otero – 1202878
-Julian Felipe Silva Vargas – 1202869
+* Daniela Garnica Guzmán – 1202851
+* Mateo Vargas Otero – 1202878
+* Julian Felipe Silva Vargas – 1202869
 
 🎯 1. Objetivo General
 
@@ -28,25 +28,25 @@ El objetivo de POCKETPET es ofrecer una plataforma web sencilla y visual que ayu
 📋 3. Requerimientos del Sistema
 3.1 Requerimientos Funcionales
 
-RF-01: El sistema debera permitir al usuario crear una cuenta proporcionando los datos solicitados en el formulario de registro.
-RF-02:El sistema debera permitir al usuario iniciar sesion mediante las credenciales registradas. 
-RF-03:El sistema debera mostrar al usuario una pagina principal con un resumen de su informacion financiera.
-RF-04:El sistema debera permitir al usuario registrar un ingreso indicando como minimo su descripcion, monto y fecha.
-RF-05:El sistema debera permitir al usuario registrar un gasto indicando como minimo su descripcion, monto, fecha y categoria. 
-RF-06:El sistema debera permitir al usuario crear una meta de ahorro indicando nombre, monto objetivo y fecha limite.
-RF-07:El sistema debera mostrar el progreso de las metas de ahorro registradas por el usuario. 
-RF-08:El sistema debera permitir al usuario registrar un ahorro indicando el monto y su destino. 
-RF-09:El sistema debera permitir al usuario consultar la informacion registrada sobre sus ingresos, gastos, ahorros y metas. 
-RF-10:El sistema debera permitir al usuario navegar entre las diferentes secciones de la plataforma desde la interfaz principal. 
+    RF-01: El sistema debera permitir al usuario crear una cuenta proporcionando los datos solicitados en el formulario de registro.
+    RF-02:El sistema debera permitir al usuario iniciar sesion mediante las credenciales registradas. 
+    RF-03:El sistema debera mostrar al usuario una pagina principal con un resumen de su informacion financiera.
+    RF-04:El sistema debera permitir al usuario registrar un ingreso indicando como minimo su descripcion, monto y fecha.
+    RF-05:El sistema debera permitir al usuario registrar un gasto indicando como minimo su descripcion, monto, fecha y categoria. 
+    RF-06:El sistema debera permitir al usuario crear una meta de ahorro indicando nombre, monto objetivo y fecha limite.
+    RF-07:El sistema debera mostrar el progreso de las metas de ahorro registradas por el usuario. 
+    RF-08:El sistema debera permitir al usuario registrar un ahorro indicando el monto y su destino. 
+    RF-09:El sistema debera permitir al usuario consultar la informacion registrada sobre sus ingresos, gastos, ahorros y metas. 
+    RF-10:El sistema debera permitir al usuario navegar entre las diferentes secciones de la plataforma desde la interfaz principal. 
 
 
 3.2 Requerimientos No Funcionales
 
-RNF-01:El sistema debera contar con una interfaz intuitiva y facil de usar, con una navegacion clara entre secciones (Metas, Ahorro, Ingresos, Gastos). 
-RNF-02:El sistema debera cargar sus paginas principales en un tiempo razonable, optimizando el peso de las imagenes utilizadas. 
-RNF-03:El sistema debera proteger la informacion de los usuarios, guardando las contraseñas de forma segura (no visibles ni accesibles directamente) en la base de datos. 
-RNF-04:El sistema debera ser compatible con los navegadores web mas utilizados 
-RNF-05:El sistema debera presentar un diseño accesible, con lenguaje claro y en español. 
+    RNF-01:El sistema debera contar con una interfaz intuitiva y facil de usar, con una navegacion clara entre secciones (Metas, Ahorro, Ingresos, Gastos). 
+    RNF-02:El sistema debera cargar sus paginas principales en un tiempo razonable, optimizando el peso de las imagenes utilizadas. 
+    RNF-03:El sistema debera proteger la informacion de los usuarios, guardando las contraseñas de forma segura (no visibles ni accesibles directamente) en la base de datos. 
+    RNF-04:El sistema debera ser compatible con los navegadores web mas utilizados 
+    RNF-05:El sistema debera presentar un diseño accesible, con lenguaje claro y en español. 
 
 
 🧠 4. Diagramas UML
@@ -72,6 +72,10 @@ Los diagramas de secuencia ilustran la interacción temporal y el flujo de mensa
 
 🎨 5. URL del Prototipo
 
+URL
+```powershell
+https://tecnologias-2026-2.github.io/POCKETPET/inicio.html
+```
 Colocar aquí el enlace público de Figma:
 
 https://www.figma.com/design/ty9fX4Lq7XpeLyawpGjVm2/Pagina-Web-Pocketpet-version-2?node-id=0-1&t=76TKTIUN1P9Y8kNT-1
