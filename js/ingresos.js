@@ -16,14 +16,14 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   function obtenerIngresos() {
-    const ingresos = localStorage.getItem('pocketpet_ingresos');
+    const ingresos = localStorage.getItem(claveUsuario('ingresos'));
     return ingresos ? JSON.parse(ingresos) : [];
   }
 
   function guardarIngreso(nuevoIngreso) {
     const ingresos = obtenerIngresos();
     ingresos.push(nuevoIngreso);
-    localStorage.setItem('pocketpet_ingresos', JSON.stringify(ingresos));
+    localStorage.setItem(claveUsuario('ingresos'), JSON.stringify(ingresos));
   }
 
   function renderizarHistorial(ingresos) {
@@ -79,7 +79,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   btnReset.addEventListener('click', () => {
     if(confirm('¿Estás seguro de que deseas borrar todo el historial de ingresos?')) {
-      localStorage.removeItem('pocketpet_ingresos');
+      localStorage.removeItem(claveUsuario('ingresos'));
       actualizarInterfaz();
     }
   });

@@ -22,9 +22,9 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function guardarGasto(nuevoGasto) {
-    const gastos = obtenerDatos('pocketpet_gastos');
+    const gastos = obtenerDatos(claveUsuario('gastos'));
     gastos.push(nuevoGasto);
-    localStorage.setItem('pocketpet_gastos', JSON.stringify(gastos));
+    localStorage.setItem(claveUsuario('gastos'), JSON.stringify(gastos));
   }
 
   function renderizarHistorial(gastos) {
@@ -54,8 +54,8 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function actualizarInterfaz() {
-    const gastos = obtenerDatos('pocketpet_gastos');
-    const ingresos = obtenerDatos('pocketpet_ingresos');
+    const gastos = obtenerDatos(claveUsuario('gastos'));
+    const ingresos = obtenerDatos(claveUsuario('ingresos'));
 
     const totalGastos = gastos.reduce((total, g) => total + g.monto, 0);
     const totalIngresos = ingresos.reduce((total, ing) => total + ing.monto, 0);
@@ -66,7 +66,6 @@ document.addEventListener('DOMContentLoaded', () => {
     
     if (saldoTotalElement) {
       saldoTotalElement.textContent = formatCOP(saldoDisponible);
-      // Cambiar color a rojo si el saldo es negativo
       saldoTotalElement.style.color = saldoDisponible < 0 ? '#dc2626' : '';
     }
 
@@ -82,10 +81,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const fecha = document.getElementById('fecha-gasto').value;
     const notas = document.getElementById('notas-gasto').value;
 
-    const ingresosActuales = obtenerDatos('pocketpet_ingresos').reduce((acc, curr) => acc + curr.monto, 0);
-    const gastosActuales = obtenerDatos('pocketpet_gastos').reduce((acc, curr) => acc + curr.monto, 0);
+    const ingresosActuales = obtenerDatos(claveUsuario('ingresos')).reduce((acc, curr) => acc + curr.monto, 0);
+    const gastosActuales = obtenerDatos(claveUsuario('gastos')).reduce((acc, curr) => acc + curr.monto, 0);
     
-    // Alerta opcional si se excede el presupuesto
     if ((gastosActuales + monto) > ingresosActuales) {
         alert('⚠️ Advertencia: Este gasto superará tus ingresos registrados.');
     }
@@ -99,7 +97,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   btnReset.addEventListener('click', () => {
     if(confirm('¿Estás seguro de que deseas borrar todo el historial de gastos?')) {
-      localStorage.removeItem('pocketpet_gastos');
+      localStorage.removeItem(claveUsuario('gastos'));
       actualizarInterfaz();
     }
   });

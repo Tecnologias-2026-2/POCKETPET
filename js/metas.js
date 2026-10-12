@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   function obtenerMetas() {
-    const metas = localStorage.getItem('pocketpet_metas');
+    const metas = localStorage.getItem(claveUsuario('metas'));
     return metas ? JSON.parse(metas) : [];
   }
 
@@ -73,7 +73,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       const metas = obtenerMetas();
       metas.push(nuevaMeta);
-      localStorage.setItem('pocketpet_metas', JSON.stringify(metas));
+      localStorage.setItem(claveUsuario('metas'), JSON.stringify(metas));
 
       actualizarInterfaz();
       formMetas.reset();
@@ -83,7 +83,7 @@ document.addEventListener('DOMContentLoaded', () => {
   if (btnReset) {
     btnReset.addEventListener('click', () => {
       if(confirm('¿Borrar todas las metas?')) {
-        localStorage.removeItem('pocketpet_metas');
+        localStorage.removeItem(claveUsuario('metas'));
         actualizarInterfaz();
       }
     });

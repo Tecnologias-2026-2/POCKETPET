@@ -19,10 +19,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function actualizarPanelInicio() {
     // 2. Leer datos del localStorage
-    const ahorros = JSON.parse(localStorage.getItem('pocketpet_ahorros')) || [];
-    const ingresos = JSON.parse(localStorage.getItem('pocketpet_ingresos')) || [];
-    const gastos = JSON.parse(localStorage.getItem('pocketpet_gastos')) || [];
-    const metas = JSON.parse(localStorage.getItem('pocketpet_metas')) || [];
+    const ahorros = JSON.parse(localStorage.getItem(claveUsuario('ahorros'))) || [];
+    const ingresos = JSON.parse(localStorage.getItem(claveUsuario('ingresos'))) || [];
+    const gastos = JSON.parse(localStorage.getItem(claveUsuario('gastos'))) || [];
+    const metas = JSON.parse(localStorage.getItem(claveUsuario('metas'))) || [];
 
     // 3. Calcular totales
     const totalAhorrado = ahorros.reduce((total, a) => total + (a.monto || 0), 0);

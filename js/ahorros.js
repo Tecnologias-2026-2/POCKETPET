@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   function obtenerAhorros() {
-    const ahorros = localStorage.getItem('pocketpet_ahorros');
+    const ahorros = localStorage.getItem(claveUsuario('ahorros'));
     return ahorros ? JSON.parse(ahorros) : [];
   }
 
@@ -49,7 +49,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if(totalAhorradoElement) totalAhorradoElement.textContent = formatCOP(totalAhorrado);
 
     // Conectar la barra de progreso con los ingresos reales guardados
-    const ingresosGuardados = localStorage.getItem('pocketpet_ingresos');
+    const ingresosGuardados = localStorage.getItem(claveUsuario('ingresos'));
     const ingresos = ingresosGuardados ? JSON.parse(ingresosGuardados) : [];
     const ingresosTotales = ingresos.reduce((total, i) => total + i.monto, 0);
 
@@ -78,10 +78,10 @@ document.addEventListener('DOMContentLoaded', () => {
       // 1. Guardar el ahorro en el historial general
       const ahorros = obtenerAhorros();
       ahorros.push(nuevoAhorro);
-      localStorage.setItem('pocketpet_ahorros', JSON.stringify(ahorros));
+      localStorage.setItem(claveUsuario('ahorros'), JSON.stringify(ahorros));
 
       // 2. VINCULACIÓN CON METAS
-      const metasGuardadas = localStorage.getItem('pocketpet_metas');
+      const metasGuardadas = localStorage.getItem(claveUsuario('metas'));
       if (metasGuardadas) {
         let metas = JSON.parse(metasGuardadas);
         let metaActualizada = false;
@@ -97,7 +97,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Si encontró una meta igual, guarda la actualización
         if (metaActualizada) {
-          localStorage.setItem('pocketpet_metas', JSON.stringify(metas));
+          localStorage.setItem(claveUsuario('metas'), JSON.stringify(metas));
         }
       }
 
@@ -109,7 +109,7 @@ document.addEventListener('DOMContentLoaded', () => {
   if (btnReset) {
     btnReset.addEventListener('click', () => {
       if(confirm('¿Estás seguro de que deseas borrar todo el historial de ahorros?')) {
-        localStorage.removeItem('pocketpet_ahorros');
+        localStorage.removeItem(claveUsuario('ahorros'));
         actualizarInterfaz();
       }
     });
