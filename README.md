@@ -116,4 +116,25 @@ Explicar brevemente qué contiene cada carpeta.
 
 🚀 8. Instalación y Ejecución
 
-Explicar cómo correr el proyecto.
+Requisitos Previos
+Tener instalado Visual Studio Code.
+
+Contar con un navegador web (Chrome, Edge, Firefox o Safari).
+
+Pasos para Ejecutar desde Visual Studio Code
+ 
+ Abrir la carpeta en VS Code:
+
+Abre Visual Studio Code.
+
+Ve al menú superior y selecciona File > Open Folder... (o Archivo > Abrir carpeta...).
+
+Selecciona la carpeta principal del proyecto POCKETPET.
+Ejecutar el proyecto:
+
+Abre el archivo index.html (o inicio.html) desde el explorador de archivos de VS Code.
+correr el progama.
+
+Navegar en el sistema:
+
+Se abrirá automáticamente una pestaña en tu navegador predeterminado en la dirección donde podrás probar todas las vistas y la navegación del sistema.
