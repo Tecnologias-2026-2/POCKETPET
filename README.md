@@ -53,7 +53,17 @@ El objetivo de POCKETPET es ofrecer una plataforma web sencilla y visual que ayu
 
 Diagrama de Casos de Uso
 
-Explicar brevemente qué muestra el diagrama.
+<img src="diagramas/Casos de uso.jpeg">
+
+La tabla de Casos de Uso especifica las interacciones entre el actor principal (Usuario) y la plataforma PocketPet, detallando cómo cada acción en la interfaz da cumplimiento directo a los requerimientos funcionales (RF-01 a RF-10) del sistema:   
+
+Autenticación y Acceso (CU-01, CU-02): Permite el flujo inicial mediante el cual el usuario crea una cuenta e inicia sesión ingresando sus credenciales para acceder a la plataforma.   
+
+Gestión de Transacciones (CU-04, CU-05): Modela el registro de entradas y salidas de dinero, donde el usuario captura ingresos detallados y gastos clasificados por categorías (Alimentación, Transporte, etc.).   
+
+Planeación Financiera y Ahorro (CU-06, CU-07, CU-08): Define las herramientas para establecer metas con nombre, monto objetivo y fecha límite, consultar su porcentaje de avance en tiempo real y asignar fondos directos a destinos específicos de ahorro.  
+
+Resumen y Navegación Global (CU-03, CU-09, CU-10): Agrupa la visualización del panel principal (Dashboard) con el balance consolidado, la consulta de movimientos históricos y la navegación fluida entre los módulos de la aplicación.   
 
 Diagrama de Secuencia
   <img src="diagramas/Diagrama de secuencia 1.jpeg">
