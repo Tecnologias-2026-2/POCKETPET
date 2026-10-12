@@ -83,8 +83,7 @@ https://www.figma.com/design/ty9fX4Lq7XpeLyawpGjVm2/Pagina-Web-Pocketpet-version
 
 🗄️ 6. Diseño de Base de Datos
 
-Agregar imagen del modelo.
-Tablas principales
+<img src="diagramas/Modelo de datos.jpeg">
 
 🧩 7. Documentación del Sistema
 Estructura de Carpetas
