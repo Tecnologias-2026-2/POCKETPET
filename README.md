@@ -56,8 +56,19 @@ Diagrama de Casos de Uso
 Explicar brevemente qué muestra el diagrama.
 
 Diagrama de Secuencia
+  <img src="diagramas/Diagrama de secuencia 1.jpeg">
+  <img src="diagramas/Diagrama de secuencia 2.jpeg">
+  <img src="diagramas/Diagrama de secuencia 3.jpeg">
 
-Explicar qué proceso representa.
+Los diagramas de secuencia ilustran la interacción temporal y el flujo de mensajes paso a paso entre los cuatro componentes principales de la arquitectura: Usuario, Interfaz web, Sistema y Base de datos.
+
+ El sistema documenta tres procesos fundamentales:  
+  
+ Proceso 1: Inicio de Sesión: Muestra cómo el usuario envía su correo y contraseña. La interfaz transfiere los datos al sistema para consultar la base de datos. Si las credenciales son válidas, se retorna la información del usuario y se despliega la pantalla principal; de lo contrario, se retorna un mensaje de error.   
+
+ Proceso 2: Registrar un Gasto: Describe el flujo desde que el usuario ingresa monto, descripción, fecha y categoría en el formulario. La información viaja al sistema, se almacena de forma persistente en la base de datos y se confirma el registro para actualizar la vista con el gasto registrado.  
+  
+ Proceso 3: Crear Meta de Ahorro: Detalla el envío del nombre de la meta, monto objetivo y fecha límite. El sistema guarda el nuevo objetivo en la base de datos y recalcula la información para mostrar la meta creada y su porcentaje de progreso inicial.
 
 🎨 5. URL del Prototipo
 
