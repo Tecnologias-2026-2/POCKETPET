@@ -52,25 +52,35 @@
 
   </div>
 
+  <script src="js/storage.js"></script>
   <script>
-    document.getElementById('register-form').addEventListener('submit', (e) => {
+    document.getElementById('register-form').addEventListener('submit', async (e) => {
       e.preventDefault();
 
       const nombre = document.getElementById('name').value.trim();
       const email = document.getElementById('email').value.trim().toLowerCase();
       const password = document.getElementById('password').value;
       const confirmar = document.getElementById('confirm-password').value;
+      const boton = e.target.querySelector('button[type="submit"]');
 
       if (password !== confirmar) {
         alert('Las contraseñas no coinciden.');
         return;
       }
 
-      // Guarda quién inició sesión y su nombre
-      localStorage.setItem('usuarioActual', email);
-      localStorage.setItem('nombre_' + email, nombre);
-
-      window.location.href = 'inicio.html';
+      boton.disabled = true;
+      try {
+        cerrarSesion();
+        const datos = await apiFetch('/api/auth/registro', {
+          method: 'POST',
+          body: JSON.stringify({ nombre, email, password })
+        });
+        guardarSesion(datos);
+        window.location.href = 'inicio.html';
+      } catch (error) {
+        alert(error.message);
+        boton.disabled = false;
+      }
     });
   </script>
 

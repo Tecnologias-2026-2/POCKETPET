@@ -46,16 +46,28 @@
 
   </div>
 
+  <script src="js/storage.js"></script>
   <script>
-    document.getElementById('login-form').addEventListener('submit', (e) => {
+    document.getElementById('login-form').addEventListener('submit', async (e) => {
       e.preventDefault();
 
       const email = document.getElementById('email').value.trim().toLowerCase();
+      const password = document.getElementById('password').value;
+      const boton = e.target.querySelector('button[type="submit"]');
 
-      // Guarda quién inició sesión
-      localStorage.setItem('usuarioActual', email);
-
-      window.location.href = 'inicio.html';
+      boton.disabled = true;
+      try {
+        cerrarSesion();
+        const datos = await apiFetch('/api/auth/login', {
+          method: 'POST',
+          body: JSON.stringify({ email, password })
+        });
+        guardarSesion(datos);
+        window.location.href = 'inicio.html';
+      } catch (error) {
+        alert(error.message);
+        boton.disabled = false;
+      }
     });
   </script>
 

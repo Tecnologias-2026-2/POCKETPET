@@ -6,83 +6,76 @@ document.addEventListener('DOMContentLoaded', () => {
   const listaHistorial = document.getElementById('lista-historial-ingresos');
   const btnReset = document.getElementById('btn-reset-ingresos');
 
-  // Utilidad para formatear en COP
-  const formatCOP = (valor) => {
-    return new Intl.NumberFormat('es-CO', { 
-      style: 'currency', 
-      currency: 'COP', 
-      minimumFractionDigits: 0 
-    }).format(valor);
-  };
+  let ingresos = [];
 
-  function obtenerIngresos() {
-    const ingresos = localStorage.getItem(claveUsuario('ingresos'));
-    return ingresos ? JSON.parse(ingresos) : [];
-  }
+  function renderizarHistorial() {
+    if (!listaHistorial) return;
+    listaHistorial.innerHTML = '';
 
-  function guardarIngreso(nuevoIngreso) {
-    const ingresos = obtenerIngresos();
-    ingresos.push(nuevoIngreso);
-    localStorage.setItem(claveUsuario('ingresos'), JSON.stringify(ingresos));
-  }
-
-  function renderizarHistorial(ingresos) {
-    if(!listaHistorial) return;
-    listaHistorial.innerHTML = ''; 
-    
-    if(ingresos.length === 0) {
-        listaHistorial.innerHTML = '<p style="color: #9ca3af; font-size: 0.875rem; text-align: center;">No hay ingresos registrados aún.</p>';
-        return;
+    if (ingresos.length === 0) {
+      listaHistorial.innerHTML = '<p style="color: #9ca3af; font-size: 0.875rem; text-align: center;">No hay ingresos registrados aún.</p>';
+      return;
     }
 
-    const ingresosInvertidos = [...ingresos].reverse();
+    // El backend ya los entrega del más reciente al más antiguo
+    ingresos.forEach((ingreso) => {
+      const item = document.createElement('div');
+      item.className = 'history-item';
 
-    ingresosInvertidos.forEach(ingreso => {
-        const item = document.createElement('div');
-        item.className = 'history-item';
-        
-        item.innerHTML = `
-            <div class="history-item-info">
-                <span class="history-item-name">${ingreso.tipo}</span>
-                <span class="history-item-date">${ingreso.fecha}</span>
-            </div>
-            <span class="history-item-amount">+ ${formatCOP(ingreso.monto)}</span>
-        `;
-        listaHistorial.appendChild(item);
+      item.innerHTML = `
+        <div class="history-item-info">
+          <span class="history-item-name">${escapar(ingreso.tipo)}</span>
+          <span class="history-item-date">${escapar(ingreso.fecha)}</span>
+        </div>
+        <span class="history-item-amount">+ ${formatCOP(ingreso.monto)}</span>
+      `;
+      listaHistorial.appendChild(item);
     });
   }
 
   function actualizarInterfaz() {
-    const ingresos = obtenerIngresos();
     const totalIngresos = ingresos.reduce((total, ing) => total + ing.monto, 0);
-    
-    if (totalIngresosElement) {
-      totalIngresosElement.textContent = formatCOP(totalIngresos);
-    }
-    renderizarHistorial(ingresos);
+    if (totalIngresosElement) totalIngresosElement.textContent = formatCOP(totalIngresos);
+    renderizarHistorial();
   }
 
-  formIngresos.addEventListener('submit', (e) => {
+  async function cargarIngresos() {
+    try {
+      ingresos = await apiFetch('/api/ingresos');
+    } catch (error) {
+      alert(error.message);
+    }
+    actualizarInterfaz();
+  }
+
+  formIngresos.addEventListener('submit', async (e) => {
     e.preventDefault();
 
-    const tipo = document.getElementById('tipo-ingreso').value;
-    const monto = parseFloat(document.getElementById('monto-ingreso').value);
-    const fecha = document.getElementById('fecha-ingreso').value;
-    const notas = document.getElementById('notas-ingreso').value;
+    const nuevoIngreso = {
+      tipo: document.getElementById('tipo-ingreso').value,
+      monto: parseFloat(document.getElementById('monto-ingreso').value),
+      fecha: document.getElementById('fecha-ingreso').value,
+      notas: document.getElementById('notas-ingreso').value
+    };
 
-    const nuevoIngreso = { id: Date.now(), tipo, monto, fecha, notas };
-
-    guardarIngreso(nuevoIngreso);
-    actualizarInterfaz();
-    formIngresos.reset();
-  });
-
-  btnReset.addEventListener('click', () => {
-    if(confirm('¿Estás seguro de que deseas borrar todo el historial de ingresos?')) {
-      localStorage.removeItem(claveUsuario('ingresos'));
-      actualizarInterfaz();
+    try {
+      await apiFetch('/api/ingresos', { method: 'POST', body: JSON.stringify(nuevoIngreso) });
+      formIngresos.reset();
+      await cargarIngresos();
+    } catch (error) {
+      alert(error.message);
     }
   });
 
-  actualizarInterfaz();
+  btnReset.addEventListener('click', async () => {
+    if (!confirm('¿Estás seguro de que deseas borrar todo el historial de ingresos?')) return;
+    try {
+      await apiFetch('/api/ingresos', { method: 'DELETE' });
+      await cargarIngresos();
+    } catch (error) {
+      alert(error.message);
+    }
+  });
+
+  cargarIngresos();
 });

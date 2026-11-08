@@ -8,99 +8,96 @@ document.addEventListener('DOMContentLoaded', () => {
   const listaHistorial = document.getElementById('lista-historial-gastos');
   const btnReset = document.getElementById('btn-reset-gastos');
 
-  const formatCOP = (valor) => {
-    return new Intl.NumberFormat('es-CO', { 
-      style: 'currency', 
-      currency: 'COP', 
-      minimumFractionDigits: 0 
-    }).format(valor);
-  };
+  let gastos = [];
+  let ingresos = [];
 
-  function obtenerDatos(clave) {
-    const datos = localStorage.getItem(clave);
-    return datos ? JSON.parse(datos) : [];
-  }
+  const sumar = (lista) => lista.reduce((total, item) => total + item.monto, 0);
 
-  function guardarGasto(nuevoGasto) {
-    const gastos = obtenerDatos(claveUsuario('gastos'));
-    gastos.push(nuevoGasto);
-    localStorage.setItem(claveUsuario('gastos'), JSON.stringify(gastos));
-  }
+  function renderizarHistorial() {
+    if (!listaHistorial) return;
+    listaHistorial.innerHTML = '';
 
-  function renderizarHistorial(gastos) {
-    if(!listaHistorial) return;
-    listaHistorial.innerHTML = ''; 
-    
-    if(gastos.length === 0) {
-        listaHistorial.innerHTML = '<p style="color: #9ca3af; font-size: 0.875rem; text-align: center;">No hay gastos registrados aún.</p>';
-        return;
+    if (gastos.length === 0) {
+      listaHistorial.innerHTML = '<p style="color: #9ca3af; font-size: 0.875rem; text-align: center;">No hay gastos registrados aún.</p>';
+      return;
     }
 
-    const gastosInvertidos = [...gastos].reverse();
+    gastos.forEach((gasto) => {
+      const item = document.createElement('div');
+      item.className = 'history-item';
 
-    gastosInvertidos.forEach(gasto => {
-        const item = document.createElement('div');
-        item.className = 'history-item';
-        
-        item.innerHTML = `
-            <div class="history-item-info">
-                <span class="history-item-name">${gasto.descripcion} (${gasto.categoria})</span>
-                <span class="history-item-date">${gasto.fecha}</span>
-            </div>
-            <span class="history-item-amount">- ${formatCOP(gasto.monto)}</span>
-        `;
-        listaHistorial.appendChild(item);
+      item.innerHTML = `
+        <div class="history-item-info">
+          <span class="history-item-name">${escapar(gasto.descripcion)} (${escapar(gasto.categoria)})</span>
+          <span class="history-item-date">${escapar(gasto.fecha)}</span>
+        </div>
+        <span class="history-item-amount">- ${formatCOP(gasto.monto)}</span>
+      `;
+      listaHistorial.appendChild(item);
     });
   }
 
   function actualizarInterfaz() {
-    const gastos = obtenerDatos(claveUsuario('gastos'));
-    const ingresos = obtenerDatos(claveUsuario('ingresos'));
-
-    const totalGastos = gastos.reduce((total, g) => total + g.monto, 0);
-    const totalIngresos = ingresos.reduce((total, ing) => total + ing.monto, 0);
+    const totalGastos = sumar(gastos);
+    const totalIngresos = sumar(ingresos);
     const saldoDisponible = totalIngresos - totalGastos;
-    
+
     if (ingresosTotalElement) ingresosTotalElement.textContent = formatCOP(totalIngresos);
     if (gastosTotalElement) gastosTotalElement.textContent = formatCOP(totalGastos);
-    
+
     if (saldoTotalElement) {
       saldoTotalElement.textContent = formatCOP(saldoDisponible);
       saldoTotalElement.style.color = saldoDisponible < 0 ? '#dc2626' : '';
     }
 
-    renderizarHistorial(gastos);
+    renderizarHistorial();
   }
 
-  formGastos.addEventListener('submit', (e) => {
+  async function cargarDatos() {
+    try {
+      [gastos, ingresos] = await Promise.all([
+        apiFetch('/api/gastos'),
+        apiFetch('/api/ingresos')
+      ]);
+    } catch (error) {
+      alert(error.message);
+    }
+    actualizarInterfaz();
+  }
+
+  formGastos.addEventListener('submit', async (e) => {
     e.preventDefault();
 
-    const descripcion = document.getElementById('descripcion-gasto').value;
-    const monto = parseFloat(document.getElementById('monto-gasto').value);
-    const categoria = document.getElementById('categoria-gasto').value;
-    const fecha = document.getElementById('fecha-gasto').value;
-    const notas = document.getElementById('notas-gasto').value;
+    const nuevoGasto = {
+      descripcion: document.getElementById('descripcion-gasto').value,
+      monto: parseFloat(document.getElementById('monto-gasto').value),
+      categoria: document.getElementById('categoria-gasto').value,
+      fecha: document.getElementById('fecha-gasto').value,
+      notas: document.getElementById('notas-gasto').value
+    };
 
-    const ingresosActuales = obtenerDatos(claveUsuario('ingresos')).reduce((acc, curr) => acc + curr.monto, 0);
-    const gastosActuales = obtenerDatos(claveUsuario('gastos')).reduce((acc, curr) => acc + curr.monto, 0);
-    
-    if ((gastosActuales + monto) > ingresosActuales) {
-        alert('⚠️ Advertencia: Este gasto superará tus ingresos registrados.');
+    if (sumar(gastos) + nuevoGasto.monto > sumar(ingresos)) {
+      alert('⚠️ Advertencia: Este gasto superará tus ingresos registrados.');
     }
 
-    const nuevoGasto = { id: Date.now(), descripcion, monto, categoria, fecha, notas };
-
-    guardarGasto(nuevoGasto);
-    actualizarInterfaz();
-    formGastos.reset();
-  });
-
-  btnReset.addEventListener('click', () => {
-    if(confirm('¿Estás seguro de que deseas borrar todo el historial de gastos?')) {
-      localStorage.removeItem(claveUsuario('gastos'));
-      actualizarInterfaz();
+    try {
+      await apiFetch('/api/gastos', { method: 'POST', body: JSON.stringify(nuevoGasto) });
+      formGastos.reset();
+      await cargarDatos();
+    } catch (error) {
+      alert(error.message);
     }
   });
 
-  actualizarInterfaz();
+  btnReset.addEventListener('click', async () => {
+    if (!confirm('¿Estás seguro de que deseas borrar todo el historial de gastos?')) return;
+    try {
+      await apiFetch('/api/gastos', { method: 'DELETE' });
+      await cargarDatos();
+    } catch (error) {
+      alert(error.message);
+    }
+  });
+
+  cargarDatos();
 });
